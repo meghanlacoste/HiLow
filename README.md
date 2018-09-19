@@ -1,63 +1,84 @@
 package com.company;
 
-/**
- * Created by 13549lac on 19/09/2018.
- */
-
 import static com.company.ProjConstants.*;
-public class HiLo {
+import java.io.*;
+import java.util.*;
 
-    private int secretNumb = INVALID; private int guess = INVALID; private boolean higher;
+public class Main {
 
-    public HiLo(int i, int i1) {
-    }
+    public static void main(String[] args) {
+	// write your code here
 
-    public void setSecretNumb ( int randomNumb) {
-        if (randomNumb >= MIN && randomNumb <= MAX) {
-            secretNumb = randomNumb;
-        }
-    }
+        // Creates a new object from HiLo Class which has the minimum and maximum parameters. This would
+        // allow one to use the minimum and maximum values from the main class in the HiLo class, even though
+        // the ProjConstants class used already allows that.
 
-    public int getSecretNumb () {
-        return secretNumb;
-
-    }
+        HiLo calcHL = new HiLo(MIN, MAX);
 
 
-    public void setGuess ( int userInput){
-        if (userInput >= MIN && userInput<= MAX) {
-            guess = userInput;
-        }
+        int userInput = INVALID;
+        Boolean higher;
+
+        Random rand = new Random();
+
+        //   Generate Random number between 1 - 100 and set to secretNumb
+        int secretNumb = rand.nextInt(MAX) + MIN;
+
+        //  Set secretNumb to the SecretNumb in the HiLo Class
+        calcHL.setSecretNumb(secretNumb);
 
 
+        while (userInput != secretNumb) {
 
-    }
+            System.out.println("\nEnter an integer between 1 and 100: ");
+            Scanner s = new Scanner(System.in);
 
-    public int getGuess (){
+            if (s.hasNextInt()){
 
-        return guess;
+                userInput = s.nextInt();
 
-    }
+                if (userInput >= MIN && userInput <= MAX)  {
+                    if (userInput!= secretNumb){
 
-    public void setHigher () {
-        if (getGuess()!= INVALID && getSecretNumb()!= INVALID) {
+                        calcHL.setGuess(userInput);
+                        // Call on the setHigher method from the HiLo Class
 
-            if (guess < secretNumb) {
-                higher = true;
+                        calcHL.setHigher();
+
+                        higher = calcHL.getHigher();
+
+
+                        if (higher) {
+
+                            System.out.print("\n higher than " + userInput + "\n");
+
+                        } else {
+
+                            System.out.print("\n lower than " + userInput + "\n");
+                        }
+
+
+                    } else {
+
+                        System.out.print("\n\n CORRECT! The secret number was: " + secretNumb +"\n\n");
+
+                    }
+
+
+                } else {
+                    System.out.print("\n ERROR: That is not within the bounds of 1-100\n");
+                }
+
+
+            } else {
+                System.out.print("\n ERROR: That is not an integer value, try again \n");
             }
-            else {
-                higher = false;
-            }// end if guess < secretNumb
 
 
-        } // end if not valid
-        else {
-            System.out.print("\n INVALID");
-        }
-    } // end method setHigher
+        } // end while guess isn't correct
 
 
-    public boolean getHigher () {
-        return higher;
-    }
-} // end HiLow Class
+
+
+    } // end main method
+} // end main class
