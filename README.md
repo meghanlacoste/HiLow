@@ -1,4 +1,3 @@
-# HiLow
 package com.company;
 
 
@@ -68,8 +67,6 @@ public class HiLo {
         return higher;
     }
 } // end HiLow Class
-
-
 
 
 
